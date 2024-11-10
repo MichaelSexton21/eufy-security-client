@@ -1506,7 +1506,8 @@ export class Device extends TypedEmitter<DeviceEvents> {
         return sn.startsWith("T8150") ||
             sn.startsWith("T8151") ||
             sn.startsWith("T8152") ||
-            sn.startsWith("T8153");
+            sn.startsWith("T8153") || 
+            sn.startsWith("T86P2");
     }
 
     static isSmartSafeBySn(sn: string): boolean {
