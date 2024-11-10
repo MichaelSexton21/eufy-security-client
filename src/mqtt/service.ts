@@ -39,7 +39,8 @@ export class MQTTService extends TypedEmitter<MQTTServiceEvents> {
     }
 
     public static async init(): Promise<MQTTService> {
-        this.proto = await load(path.join(__dirname, "./proto/lock.proto"));
+        const rootPath = process.cwd(); // Root of the Next.js project
+        this.proto = await load(path.join(rootPath, 'node_modules/eufy-security-client/build/mqtt/proto/lock.proto'));
         return new MQTTService();
     }
 
@@ -54,7 +55,7 @@ export class MQTTService extends TypedEmitter<MQTTServiceEvents> {
     }
 
     private getMQTTBrokerUrl(apiBase: string): string {
-        switch(apiBase) {
+        switch (apiBase) {
             case "https://security-app.eufylife.com":
                 return "mqtts://security-mqtt.eufylife.com";
             case "https://security-app-ci.eufylife.com":
