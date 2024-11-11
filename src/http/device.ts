@@ -1025,7 +1025,8 @@ export class Device extends TypedEmitter<DeviceEvents> {
             type == DeviceType.CAMERA_GARAGE_T8452 ||
             type == DeviceType.CAMERA_FG ||
             type == DeviceType.INDOOR_PT_CAMERA_S350 ||
-            type == DeviceType.SMART_DROP)
+            type == DeviceType.SMART_DROP ||
+            type == DeviceType.CAMERA_4G_LTE_S330)
             return true;
         return false;
     }
@@ -1066,7 +1067,8 @@ export class Device extends TypedEmitter<DeviceEvents> {
             type == DeviceType.CAMERA_FG ||
             type == DeviceType.WALL_LIGHT_CAM_81A0 ||
             type == DeviceType.SMART_DROP ||
-            type == DeviceType.OUTDOOR_PT_CAMERA)
+            type == DeviceType.OUTDOOR_PT_CAMERA ||
+            type == DeviceType.CAMERA_4G_LTE_S330)
             //TODO: Add other battery devices
             return true;
         return false;
@@ -1389,13 +1391,17 @@ export class Device extends TypedEmitter<DeviceEvents> {
         return DeviceType.CAMERA3C == type;
     }
 
+    static isCamera_4G_LTE_S330(type: number): boolean {
+        return DeviceType.CAMERA_4G_LTE_S330 == type;
+    }
+
     static isCameraProfessional247(type: number): boolean {
         // T8600 - E330
         return DeviceType.PROFESSIONAL_247 == type;
     }
 
     static isCamera3Product(type: number): boolean {
-        return Device.isCamera3(type) || Device.isCamera3C(type) || Device.isCameraProfessional247(type);
+        return Device.isCamera3(type) || Device.isCamera3C(type) || Device.isCameraProfessional247(type) || Device.isCamera_4G_LTE_S330(type);
     }
 
     static isEntrySensor(type: number): boolean {
@@ -1500,7 +1506,8 @@ export class Device extends TypedEmitter<DeviceEvents> {
         return sn.startsWith("T8150") ||
             sn.startsWith("T8151") ||
             sn.startsWith("T8152") ||
-            sn.startsWith("T8153");
+            sn.startsWith("T8153") || 
+            sn.startsWith("T86P2");
     }
 
     static isSmartSafeBySn(sn: string): boolean {
@@ -1726,6 +1733,10 @@ export class Device extends TypedEmitter<DeviceEvents> {
 
     public isCamera3C(): boolean {
         return Device.isCamera3C(this.rawDevice.device_type);
+    }
+
+    public isCamera_4G_LTE_S330(): boolean {
+        return Device.isCamera_4G_LTE_S330(this.rawDevice.device_type);
     }
 
     public isCameraProfessional247(): boolean {

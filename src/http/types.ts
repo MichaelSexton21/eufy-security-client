@@ -62,6 +62,7 @@ export enum DeviceType {
     CAMERA_SNAIL = 102,
     INDOOR_PT_CAMERA_S350 = 104,
     CAMERA_FG = 110, //T8150
+    CAMERA_4G_LTE_S330 = 111, //T86P2
     CAMERA_GARAGE_T8453_COMMON = 131,
     CAMERA_GARAGE_T8452 = 132,
     CAMERA_GARAGE_T8453 = 133,
@@ -574,7 +575,7 @@ export enum PropertyName {
     DeviceWifiRSSI = "wifiRssi",
     DeviceWifiSignalLevel = "wifiSignalLevel",
     DeviceEnabled = "enabled",
-    DeviceAntitheftDetection= "antitheftDetection",
+    DeviceAntitheftDetection = "antitheftDetection",
     DeviceAutoNightvision = "autoNightvision",
     DeviceNightvision = "nightvision",
     DeviceStatusLed = "statusLed",
@@ -994,6 +995,7 @@ export const GenericTypeProperty: PropertyMetadataNumeric = {
         102: "Camera Snail",
         104: "Indoor Camera S350",
         110: "Starlight 4G LTE", //T8150
+        111: "Camera 4G LTE S330", //T86P2
         131: "Camera Garage T8453 Common",
         132: "Garage-Control Cam E110 (T8452)",
         133: "Garage-Control Cam E120 (T8453)",
@@ -1345,7 +1347,7 @@ export const DeviceStatusLedDoorbellProperty: PropertyMetadataBoolean = {
 
 export const DeviceStatusLedT8200XProperty: PropertyMetadataBoolean = {
     ...DeviceStatusLedProperty,
-    key:ParamType.COMMAND_LED_NIGHT_OPEN,
+    key: ParamType.COMMAND_LED_NIGHT_OPEN,
     commandId: ParamType.COMMAND_LED_NIGHT_OPEN,
 };
 
@@ -5987,7 +5989,7 @@ export const DeviceProperties: Properties = {
         [PropertyName.DeviceRecordingRetriggerInterval]: DeviceRecordingRetriggerIntervalBatteryDoorbellProperty,
         [PropertyName.DeviceRecordingEndClipMotionStops]: DeviceRecordingEndClipMotionStopsProperty,
         [PropertyName.DeviceVideoStreamingQuality]: DeviceVideoStreamingQualityBatteryDoorbellProperty, //OK
-        [PropertyName.DeviceVideoRecordingQuality]:DeviceVideoRecordingQualityT8530Property, //OK
+        [PropertyName.DeviceVideoRecordingQuality]: DeviceVideoRecordingQualityT8530Property, //OK
         [PropertyName.DeviceChimeIndoor]: DeviceChimeIndoorBatteryDoorbellProperty,
         [PropertyName.DeviceChimeHomebase]: DeviceChimeHomebaseBatteryDoorbellProperty, //OK
         [PropertyName.DeviceChimeHomebaseRingtoneVolume]: DeviceChimeHomebaseRingtoneVolumeBatteryDoorbellProperty, //OK
@@ -6706,6 +6708,53 @@ export const DeviceProperties: Properties = {
         [PropertyName.DeviceVideoTypeStoreToNAS]: DeviceVideoTypeStoreToNASProperty,
     },
     [DeviceType.CAMERA_FG]: {
+        ...GenericDeviceProperties,
+        [PropertyName.DeviceEnabled]: DeviceEnabledSoloProperty,
+        [PropertyName.DeviceBattery]: DeviceBatteryProperty,
+        [PropertyName.DeviceBatteryTemp]: DeviceBatteryTempProperty,
+        [PropertyName.DeviceNightvision]: DeviceNightvisionProperty,
+        [PropertyName.DeviceMotionDetection]: DeviceMotionDetectionIndoorSoloFloodProperty,
+        [PropertyName.DeviceWatermark]: DeviceWatermarkSoloWiredDoorbellProperty,
+        [PropertyName.DeviceMotionDetected]: DeviceMotionDetectedProperty,
+        [PropertyName.DevicePersonDetected]: DevicePersonDetectedProperty,
+        [PropertyName.DeviceStatusLed]: DeviceStatusLedProperty,
+        [PropertyName.DevicePicture]: DevicePictureProperty,
+        [PropertyName.DevicePictureUrl]: DevicePictureUrlProperty,
+        [PropertyName.DeviceMicrophone]: DeviceMicrophoneProperty,
+        [PropertyName.DeviceSpeaker]: DeviceSpeakerProperty,
+        [PropertyName.DeviceSpeakerVolume]: DeviceSpeakerVolumeSoloProperty,
+        [PropertyName.DeviceAudioRecording]: DeviceAudioRecordingStarlight4gLTEProperty,
+        [PropertyName.DeviceMotionDetectionType]: DeviceMotionDetectionTypeProperty,
+        [PropertyName.DevicePowerWorkingMode]: DevicePowerWorkingModeProperty,
+        [PropertyName.DeviceRecordingClipLength]: DeviceRecordingClipLengthProperty,
+        [PropertyName.DeviceRecordingRetriggerInterval]: DeviceRecordingRetriggerIntervalProperty,
+        [PropertyName.DeviceRecordingEndClipMotionStops]: DeviceRecordingEndClipMotionStopsProperty,
+        [PropertyName.DeviceVideoStreamingQuality]: DeviceVideoStreamingQualitySoloProperty,
+        [PropertyName.DeviceVideoRecordingQuality]: DeviceVideoRecordingQualityProperty,
+        [PropertyName.DeviceNotificationType]: DeviceNotificationTypeIndoorFloodlightProperty,
+        //[PropertyName.DeviceWifiRSSI]: DeviceWifiRSSIProperty,
+        //[PropertyName.DeviceWifiSignalLevel]: DeviceWifiSignalLevelProperty,
+        [PropertyName.DeviceMotionDetectionSensitivity]: DeviceMotionDetectionSensitivitySoloProperty,
+        [PropertyName.DeviceLastChargingDays]: DeviceLastChargingDaysProperty,
+        [PropertyName.DeviceLastChargingRecordedEvents]: DeviceLastChargingRecordedEventsProperty,
+        [PropertyName.DeviceLastChargingTotalEvents]: DeviceLastChargingTotalEventsProperty,
+        [PropertyName.DeviceBatteryUsageLastWeek]: DeviceBatteryUsageLastWeekProperty,
+        [PropertyName.DeviceState]: DeviceStateProperty,
+        [PropertyName.DeviceChargingStatus]: DeviceChargingStatusProperty,
+        [PropertyName.DeviceSnooze]: DeviceSnoozeProperty,
+        [PropertyName.DeviceSnoozeTime]: DeviceSnoozeTimeProperty,
+        [PropertyName.DeviceSnoozeStartTime]: DeviceSnoozeStartTimeProperty,
+        [PropertyName.DevicePersonName]: DevicePersonNameProperty,
+        [PropertyName.DeviceAntitheftDetection]: DeviceAntitheftDetectionProperty,
+        [PropertyName.DevicePowerSource]: DevicePowerSourceProperty,
+        [PropertyName.DeviceCellularRSSI]: DeviceCellularRSSIProperty,
+        [PropertyName.DeviceCellularSignalLevel]: DeviceCellularSignalLevelProperty,
+        [PropertyName.DeviceCellularSignal]: DeviceCellularSignalProperty,
+        [PropertyName.DeviceCellularBand]: DeviceCellularBandProperty,
+        [PropertyName.DeviceCellularIMEI]: DeviceCellularIMEIProperty,
+        [PropertyName.DeviceCellularICCID]: DeviceCellularICCIDProperty,
+    },
+    [DeviceType.CAMERA_4G_LTE_S330]: {
         ...GenericDeviceProperties,
         [PropertyName.DeviceEnabled]: DeviceEnabledSoloProperty,
         [PropertyName.DeviceBattery]: DeviceBatteryProperty,
@@ -8160,12 +8209,12 @@ export const StationCrossTrackingGroupListProperty: PropertyMetadataObject = {
             return obj.length > 0 &&
                 obj.every((element) => {
                     return typeof element === "object" &&
-                    "value" in element &&
-                    Array.isArray(element.value) &&
-                    element.value.length > 0 &&
-                    element.value.every((value) => {
-                        return typeof value === "string";
-                    })
+                        "value" in element &&
+                        Array.isArray(element.value) &&
+                        element.value.length > 0 &&
+                        element.value.every((value) => {
+                            return typeof value === "string";
+                        })
                 });
         }
         return false;
@@ -8422,6 +8471,19 @@ export const StationProperties: Properties = {
         [PropertyName.StationTimeFormat]: StationTimeFormatProperty,
     },
     [DeviceType.CAMERA_FG]: {
+        ...BaseStationProperties,
+        [PropertyName.StationLANIpAddress]: StationLanIpAddressStandaloneProperty,
+        [PropertyName.StationMacAddress]: StationMacAddressProperty,
+        [PropertyName.StationGuardMode]: StationGuardModeProperty,
+        [PropertyName.StationCurrentMode]: StationCurrentModeProperty,
+        [PropertyName.StationTimeFormat]: StationTimeFormatProperty,
+        [PropertyName.StationTimeZone]: StationTimeZoneProperty,
+        [PropertyName.StationAlarm]: StationAlarmProperty,
+        [PropertyName.StationAlarmType]: StationAlarmTypeProperty,
+        //[PropertyName.StationNotificationSwitchModeSchedule]: StationNotificationSwitchModeScheduleProperty, //TODO: Implement correctly
+        //[PropertyName.StationNotificationSwitchModeApp]: StationNotificationSwitchModeAppProperty, //TODO: Implement correctly
+    },
+    [DeviceType.CAMERA_4G_LTE_S330]: {
         ...BaseStationProperties,
         [PropertyName.StationLANIpAddress]: StationLanIpAddressStandaloneProperty,
         [PropertyName.StationMacAddress]: StationMacAddressProperty,
@@ -8970,6 +9032,15 @@ export const DeviceCommands: Commands = {
         CommandName.DeviceStopTalkback,
         CommandName.DeviceSnooze,
     ],
+    [DeviceType.CAMERA_4G_LTE_S330]: [
+        CommandName.DeviceStartLivestream,
+        CommandName.DeviceStopLivestream,
+        CommandName.DeviceStartDownload,
+        CommandName.DeviceCancelDownload,
+        CommandName.DeviceStartTalkback,
+        CommandName.DeviceStopTalkback,
+        CommandName.DeviceSnooze,
+    ],
     [DeviceType.SOLO_CAMERA]: [
         CommandName.DeviceStartLivestream,
         CommandName.DeviceStopLivestream,
@@ -9369,6 +9440,15 @@ export const StationCommands: Commands = {
     ],
     [DeviceType.BATTERY_DOORBELL_PLUS_E340]: [
         CommandName.StationReboot,
+        CommandName.StationDownloadImage,
+        CommandName.StationDatabaseQueryLatestInfo,
+        CommandName.StationDatabaseQueryLocal,
+        CommandName.StationDatabaseCountByDate,
+        CommandName.StationDatabaseDelete,
+    ],
+    [DeviceType.CAMERA_4G_LTE_S330]: [
+        CommandName.StationReboot,
+        CommandName.StationTriggerAlarmSound,
         CommandName.StationDownloadImage,
         CommandName.StationDatabaseQueryLatestInfo,
         CommandName.StationDatabaseQueryLocal,
